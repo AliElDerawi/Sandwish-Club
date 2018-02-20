@@ -1,4 +1,4 @@
-package com.udacity.sandwichclub;
+package com.udacity.sandwichclub.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,19 +7,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
+import com.udacity.sandwichclub.R;
 import com.udacity.sandwichclub.model.Sandwich;
+import com.udacity.sandwichclub.utils.GlideApp;
 import com.udacity.sandwichclub.utils.JsonUtils;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_POSITION = "extra_position";
     private static final int DEFAULT_POSITION = -1;
-    private TextView alsoKnowAsTv, placeOfOriginTv ;
-    private TextView descriptionTv , ingredientTv;
-    private ImageView ingredientsIv;
+    @BindView(R.id.also_known_tv) TextView alsoKnowAsTv;
+    @BindView(R.id.origin_tv) TextView placeOfOriginTv;
+    @BindView(R.id.description_tv) TextView descriptionTv;
+    @BindView(R.id.ingredients_tv) TextView ingredientTv;
+    @BindView(R.id.image_iv) ImageView ingredientsIv;
+
     private Sandwich sandwich;
 
     @Override
@@ -53,19 +60,20 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         populateUI();
-        Picasso.with(this)
+
+        GlideApp.with(this)
                 .load(sandwich.getImage())
+                .error(R.mipmap.ic_launcher)
+                 .placeholder(R.drawable.placeholder_sandwish)
                 .into(ingredientsIv);
 
         setTitle(sandwich.getMainName());
     }
 
     private void initialize(){
-        alsoKnowAsTv = findViewById(R.id.also_known_tv);
-        placeOfOriginTv = findViewById(R.id.origin_tv);
-        descriptionTv = findViewById(R.id.description_tv);
-        ingredientTv = findViewById(R.id.ingredients_tv);
-        ingredientsIv = findViewById(R.id.image_iv);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ButterKnife.bind(this);
     }
 
     private void closeOnError() {

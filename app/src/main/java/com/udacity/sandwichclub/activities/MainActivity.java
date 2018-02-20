@@ -1,4 +1,4 @@
-package com.udacity.sandwichclub;
+package com.udacity.sandwichclub.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,9 +8,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.udacity.sandwichclub.R;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
 
-    private ListView listView ;
+    @BindView(R.id.sandwiches_listview) ListView listView ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initialize(){
         // Simplification: Using a ListView instead of a RecyclerView
-        listView = findViewById(R.id.sandwiches_listview);
+        ButterKnife.bind(this);
 
     }
 
