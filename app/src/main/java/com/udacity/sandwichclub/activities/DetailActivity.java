@@ -84,24 +84,25 @@ public class DetailActivity extends AppCompatActivity {
     private void populateUI() {
 
         List<String> alsoKnownAs = sandwich.getAlsoKnownAs();
-        StringBuilder alsoKnownAsString  = new StringBuilder();
-        for (int i = 0 ; i <alsoKnownAs.size() ; i++){
-          alsoKnownAsString.append(alsoKnownAs.get(i));
-          if (alsoKnownAs.size() > 1 && alsoKnownAs.size() != i+1)
-          alsoKnownAsString.append(" , ");
-        }
 
-        alsoKnowAsTv.setText(alsoKnownAsString.toString());
+        populateListView(alsoKnownAs,alsoKnowAsTv);
+
         placeOfOriginTv.setText(sandwich.getPlaceOfOrigin());
         descriptionTv.setText(sandwich.getDescription());
 
         List<String> ingredients = sandwich.getIngredients();
-        StringBuilder ingredientsString = new StringBuilder();
-        for (int i = 0 ; i < ingredients.size() ; i++){
-            ingredientsString.append(ingredients.get(i));
-            if (ingredients.size() >1 && ingredients.size() != i+1)
-            ingredientsString.append(" , ");
+
+        populateListView(ingredients,ingredientTv);
+
+    }
+
+    private void populateListView (List<String> list , TextView view ){
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0 ; i < list.size() ; i++){
+            stringBuilder.append(list.get(i));
+            if (list.size() >1 && list.size() != i+1)
+                stringBuilder.append(" , ");
         }
-        ingredientTv.setText(ingredientsString.toString());
+        view.setText(stringBuilder.toString());
     }
 }
